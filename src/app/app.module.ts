@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 //import { AppComponent } from './app.component';
 import { ProductComponent } from "./component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PaAttrDirective } from "./attr.directive";
 
 @NgModule({
   declarations: [
-    ProductComponent
+    ProductComponent, PaAttrDirective
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule

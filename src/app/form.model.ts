@@ -11,7 +11,7 @@ export class ProductFormControl extends FormControl {
     }
 
     getValidationMessages() {
-        console.log(this);
+        //console.log(this);
         let messages: string[] = [];
         if (this.errors) {
             for (let errorName in this.errors) {
@@ -49,7 +49,10 @@ export class ProductFormGroup extends FormGroup {
                 Validators.pattern("^[A-Za-z ]+$"),
                 Validators.minLength(3),
                 Validators.maxLength(10)])),
-            price: new ProductFormControl("Price", "price", "", Validators.compose([Validators.required, LimitValidator.Limit(100),Validators.pattern("^[0-9\.]+$")]))
+            price: new ProductFormControl("Price", "price", "", 
+                 Validators.compose([Validators.required, 
+                                    LimitValidator.Limit(100),
+                                    Validators.pattern("^[0-9\.]+$")]))
         });
     }
 
@@ -60,14 +63,14 @@ export class ProductFormGroup extends FormGroup {
 
     get productControls(): ProductFormControl[] {
         return Object.keys(this.controls).map(k => {
-            console.log(k);
+            //console.log(k);
             return this.controls[k] as ProductFormControl
         });
 
     }
 
     getFormValidationMessages(form: any): string[] {
-        console.log(this.productControls)
+        //console.log(this.productControls)
         let messages: string[] = [];
         this.productControls.forEach(c => c.getValidationMessages()
             .forEach(m => messages.push(m)));
