@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Attribute, Input } from "@angular/core";
+import { Directive, ElementRef, Attribute, Input, SimpleChange } from "@angular/core";
 
 @Directive({
     selector: "[pa-attr]",
@@ -6,15 +6,27 @@ import { Directive, ElementRef, Attribute, Input } from "@angular/core";
 export class PaAttrDirective {
 
     constructor(private element: ElementRef) {
-        console.log('been called')
+        //console.log('been called')
     }
 
     @Input("pa-attr")
     bgClass: string;
-    
+
+    ngOnChanges(changes: { [property: string]: SimpleChange }) {
+        console.log('changes called');
+        let change = changes["bgClass"];
+        let classList = this.element.nativeElement.classList;
+
+        if (!change.isFirstChange() && classList.contains(change.previousValue)) {
+            classList.remove(change.previousValue);
+        }
+        if (!classList.contains(change.currentValue)) {
+            classList.add(change.currentValue);
+        }
+    }
+
     ngOnInit() {
-        this.element.nativeElement.classList.add(this.bgClass || "bg-success",
-            "text-white");
+       console.log('init called')
     }
 }
 
