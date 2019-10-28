@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Attribute, Input, SimpleChange } from "@angular/core";
+import { Directive, ElementRef, Attribute, Input, SimpleChange, Output, EventEmitter } from "@angular/core";
+import { Product } from "./product.model";
 
 @Directive({
     selector: "[pa-attr]",
@@ -6,14 +7,25 @@ import { Directive, ElementRef, Attribute, Input, SimpleChange } from "@angular/
 export class PaAttrDirective {
 
     constructor(private element: ElementRef) {
-        //console.log('been called')
+        this.element.nativeElement.addEventListener("click", e => {
+            if (this.product != null) {
+                this.click.emit(this.product.category);
+            }
+        });
     }
 
     @Input("pa-attr")
     bgClass: string;
 
+    @Input("pa-product")
+    product: Product;
+
+    @Output("pa-category")
+    click = new EventEmitter<string>();
+
     ngOnChanges(changes: { [property: string]: SimpleChange }) {
-        console.log('changes called');
+        //console.log('changes called');
+        console.log(changes);
         let change = changes["bgClass"];
         let classList = this.element.nativeElement.classList;
 
@@ -26,7 +38,7 @@ export class PaAttrDirective {
     }
 
     ngOnInit() {
-       console.log('init called')
+        console.log('init called')
     }
 }
 
