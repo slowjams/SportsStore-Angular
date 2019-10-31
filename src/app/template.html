@@ -28,6 +28,13 @@
         </form>
     </div>
     <div class="col-6">
+        <div class="form-group bg-info text-white p-2">
+            <label>Name:</label>
+            <input id="zzz" class="bg-primary text-white" [(paModel)]="newProduct.name" #paModel="paModel" />
+            <div class="bg-primary text-white">Direction: {{paModel.direction}}</div>
+            <!-- <input class="bg-primary text-white" [paModel]="newProduct.name" (input)="newProduct.name=$event.target.value" /> -->
+            <!-- <input class="bg-primary text-white" [paModel]="newProduct.name" (paModelChange)="newProduct.name=$event" /> -->
+        </div>
         <table class="table table-sm table-bordered table-striped">
             <tr>
                 <th></th>
